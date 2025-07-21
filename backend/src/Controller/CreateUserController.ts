@@ -10,7 +10,7 @@ class CreateUserController {
     };
 
     if (!fullName || !email || !password) {
-      reply.status(400).send({ message: 'Todos os campos são requiridos' });
+      reply.status(400).send({ message: 'All fields are required' });
     }
 
     try {

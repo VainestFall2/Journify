@@ -17,7 +17,7 @@ class CreateUserService {
     });
 
     if (isUser) {
-      throw new Error('Usuário já existe');
+      throw new Error('User already exists');
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -44,7 +44,7 @@ class CreateUserService {
         email: user.email,
       },
       accessToken,
-      message: 'Registrado com sucesso!',
+      message: 'Successfully registered!',
     };
   }
 }

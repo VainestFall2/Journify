@@ -9,7 +9,7 @@ class LoginUserController {
     };
 
     if (!email || !password) {
-      reply.status(400).send({ message: 'Todos os campos são requeridos' });
+      reply.status(400).send({ message: 'All fields are required' });
     }
 
     try {
