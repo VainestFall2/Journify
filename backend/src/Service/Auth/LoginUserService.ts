@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
-import prismaClient from '../prisma';
+import prismaClient from '../../prisma';
+import { AuthUtils } from '../../utils/AuthUtils';
 
 interface UserProps {
   email: string;
@@ -24,12 +24,7 @@ class LoginUserService {
       throw new Error('Invalid credentials');
     }
 
-    const accessToken = jwt.sign(
-      { userId: user.id },
-      // biome-ignore lint/style/noNonNullAssertion: environment variable is guaranteed to be set
-      process.env.ACCESS_TOKEN_SECRET!,
-      { expiresIn: '72h' },
-    );
+    const accessToken = AuthUtils.generateAccessToken(user.id);
 
     return {
       erro: false,
