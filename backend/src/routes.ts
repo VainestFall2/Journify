@@ -2,6 +2,7 @@ import type { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
 import { CreateUserController } from './Controller/Auth/CreateUserController';
 import { GetUserController } from './Controller/Auth/GetUserController';
 import { LoginUserController } from './Controller/Auth/LoginUserController';
+import { GenerateIAController } from './Controller/IA/GenerateIAController';
 import { AddMomentsController } from './Controller/Moments/AddMomentsController';
 import { GetAllMomentsController } from './Controller/Moments/GetAllMomentsController';
 import { SearchMomentsController } from './Controller/Moments/SearchMomentsController';
@@ -69,4 +70,8 @@ export function routes(fastify: FastifyInstance) {
       return new UpdateMomentsController().handle(request, reply);
     },
   );
+
+  fastify.post('/ia', async (request: FastifyRequest, reply: FastifyReply) => {
+    return new GenerateIAController().handle(request, reply);
+  });
 }
