@@ -7,6 +7,9 @@ import { AddMomentsController } from './Controller/Moments/AddMomentsController'
 import { GetAllMomentsController } from './Controller/Moments/GetAllMomentsController';
 import { SearchMomentsController } from './Controller/Moments/SearchMomentsController';
 import { UpdateMomentsController } from './Controller/Moments/UpdateMomentsController';
+import { DeleteFileController } from './Controller/Upload/DeleteFileController';
+import { UploadFileController } from './Controller/Upload/UploadFileController';
+import { upload } from './config/multer';
 import { authenticateToken } from './middleware/authenticateToken';
 
 export function routes(fastify: FastifyInstance) {
@@ -71,7 +74,26 @@ export function routes(fastify: FastifyInstance) {
     },
   );
 
+  // IA: BUSCAR POR TERMOS
   fastify.post('/ia', async (request: FastifyRequest, reply: FastifyReply) => {
     return new GenerateIAController().handle(request, reply);
   });
+
+  // UPLOAD: ADICIONAR IMAGEM
+  fastify.post(
+    '/image-upload',
+    { preHandler: upload.single('image') },
+    async (request: FastifyRequest, reply: FastifyReply) => {
+      return new UploadFileController().handle(request, reply);
+    },
+  );
+
+  // UPLOAD: DELETAR IMAGEM
+  fastify.delete(
+    '/delete-upload',
+    { preHandler: upload.single('image') },
+    async (request: FastifyRequest, reply: FastifyReply) => {
+      return new DeleteFileController().handle(request, reply);
+    },
+  );
 }
