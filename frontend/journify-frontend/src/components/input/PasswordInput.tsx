@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import { useLocation } from "react-router-dom";
 
 interface PasswordInputProps {
   value: string;
@@ -13,10 +14,16 @@ export default function PasswordInput({
   placeholder,
 }: PasswordInputProps) {
   const [isShowPassword, setIsShowPassword] = useState(false);
+  const location = useLocation();
 
   const toggleShowPassword = () => {
     setIsShowPassword(!isShowPassword);
   };
+
+  const iconColor =
+    location.pathname === "/login"
+      ? "text-primary"
+      : location.pathname === "/signup" && "text-lime-500";
 
   return (
     <div className="flex items-center bg-violet-600/5 px-5 rounded mb-3">
@@ -31,13 +38,13 @@ export default function PasswordInput({
       {isShowPassword ? (
         <FaRegEye
           size={22}
-          className="text-primary cursor-pointer"
+          className={` ${iconColor} cursor-pointer`}
           onClick={() => toggleShowPassword()}
         />
       ) : (
         <FaRegEyeSlash
           size={22}
-          className="text-primary cursor-pointer"
+          className={`${iconColor} cursor-pointer`}
           onClick={() => toggleShowPassword()}
         />
       )}
