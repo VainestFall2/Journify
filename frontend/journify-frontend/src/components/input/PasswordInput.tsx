@@ -26,7 +26,7 @@ export default function PasswordInput({
       : location.pathname === "/signup" && "text-lime-500";
 
   return (
-    <div className="flex items-center bg-violet-600/5 px-5 rounded mb-3">
+    <div className="flex items-center bg-pink-600/5 px-5 rounded mb-3">
       <input
         value={value}
         placeholder={placeholder || "Password"}

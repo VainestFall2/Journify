@@ -7,6 +7,7 @@ import JournifyCard from "../../components/Card/JournifyCard";
 import { ToastContainer, toast } from "react-toastify";
 import { MdAdd } from "react-icons/md";
 import Modal from "react-modal";
+import AddEditTravelMoment from "./AddEditTravelMoment";
 
 interface MomentsProps {
   createdOn: string;
@@ -140,7 +141,7 @@ export default function Home() {
         ariaHideApp={false}
         className="model-box"
       >
-        <h2>MODAL</h2>
+        <AddEditTravelMoment />
       </Modal>
 
       <button

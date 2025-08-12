@@ -4,6 +4,13 @@
 @tailwind components;
 @tailwind utilities;
 
+.rdp-root{
+  --rdp-accent-color: #E8026F !important;
+  --rdp-day_button-border-radius: 30% !important;
+  --rdp-accent-background-color: #dffbff !important;
+  --rdp-selected-font: bold medium var(--rdp-font-family) !important;
+}
+
 .scrollbar::-webkit-scrollbar{
   width: 3px;
   height: 3px;
@@ -31,15 +38,15 @@
 
 @layer components{
   .input-box{
-    @apply w-full text-sm bg-violet-600/5 rounded px-5 py-3 mb-4 outline-none;
+    @apply w-full text-sm bg-pink-600/5 rounded px-5 py-3 mb-4 outline-none;
   }
 
   .btn-primary{
-    @apply w-full text-sm font-medium text-white bg-violet-500 shadow-lg shadow-violet-200/50 p-[10px] rounded-full my-1 hover:bg-violet-100 hover:text-primary
+    @apply w-full text-sm font-medium text-white bg-pink-500 shadow-lg shadow-pink-200/50 p-[10px] rounded-full my-1 hover:bg-pink-100 hover:text-primary
   }
 
   .btn-light{
-    @apply bg-violet-50 text-primary shadow-violet-100/0 border border-violet-100 hover:bg-primary hover:text-white
+    @apply bg-pink-50 text-primary shadow-pink-100/0 border border-pink-100 hover:bg-primary hover:text-white
   }
 
   .login-ui-box{
@@ -60,5 +67,9 @@
 
   .btn-small{
     @apply flex items-center gap-1 text-xs font-medium bg-fuchsia-50 text-primary shadow-fuchsia-100/0  border border-fuchsia-100 hover:bg-primary hover:text-white rounded px-3 py-[3px]
+  }
+
+  .btn-delete {
+    @apply bg-rose-50 text-rose-500 shadow-rose-100/0 border border-rose-100 hover:bg-rose-500 hover:text-white;
   }
 }
