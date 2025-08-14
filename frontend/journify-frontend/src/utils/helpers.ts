@@ -1,3 +1,6 @@
+import { format } from "date-fns";
+import { enUS } from "date-fns/locale";
+
 export const validateEmail = (email: string) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return regex.test(email)
@@ -15,3 +18,9 @@ export const getInitials = (name: string) => {
 
     return initial.toUpperCase()
 }
+
+export const formatDate = (dateString: string): string => {
+    const date = new Date(dateString);
+
+    return format(date, "MMM do yyyy", { locale: enUS });
+  };

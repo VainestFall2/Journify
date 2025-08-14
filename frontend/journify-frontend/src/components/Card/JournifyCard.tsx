@@ -1,7 +1,6 @@
-import { format } from "date-fns";
-import { enUS } from "date-fns/locale";
 import { FaHeart } from "react-icons/fa";
 import { GrMapLocation } from "react-icons/gr";
+import { formatDate } from "../../utils/helpers";
 
 interface JournifyCardProps {
   imageUrl: string;
@@ -10,6 +9,7 @@ interface JournifyCardProps {
   date: string;
   visitedLocation: string[];
   isFavorite: boolean;
+  onHandleViewStory: () => void;
   onFavoriteClick: () => Promise<void>;
 }
 
@@ -20,20 +20,16 @@ export default function JournifyCard({
   date,
   visitedLocation,
   isFavorite,
+  onHandleViewStory,
   onFavoriteClick,
 }: JournifyCardProps) {
-  const formatDate = (dateString: string): string => {
-    const date = new Date(dateString);
-
-    return format(date, "MMM do yyyy", { locale: enUS });
-  };
   return (
     <article className="border rounded-lg overflow-hidden bg-white hover:shadow-lg hover:shadow-slate-200 transition-all ease-in-out relative cursor-pointer">
       <img
         src={imageUrl}
         alt={title}
         className="w-full h-56 object-cover rounded-lg"
-        onClick={() => {}}
+        onClick={onHandleViewStory}
       />
 
       <button

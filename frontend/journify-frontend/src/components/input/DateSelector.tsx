@@ -30,7 +30,7 @@ export const DateSelector = ({ date, setDate }: DateSelectorProps) => {
           <button
             className="w-10 h-10 rounded-full flex items-center justify-center bg-fuchsia-100 hover:bg-fuchsia-100 absolute top-2 right-2"
             onClick={() => {
-              setOpenDatePicker(true);
+              setOpenDatePicker(false);
             }}
           >
             <MdClose className="text-xl text-fuchsia-600" />

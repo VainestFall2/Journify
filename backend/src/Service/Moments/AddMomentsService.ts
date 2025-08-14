@@ -18,7 +18,7 @@ class AddMomentsService {
     imageUrl,
     visitedDate,
   }: RegisteredMomentProps) {
-    const parsedVisitedDate = new Date(parseInt(visitedDate));
+    const parsedVisitedDate = new Date(visitedDate);
 
     const registeredMoment = await prismaClient.registeredMoment.create({
       data: {

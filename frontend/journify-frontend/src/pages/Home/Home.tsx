@@ -8,6 +8,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { MdAdd } from "react-icons/md";
 import Modal from "react-modal";
 import AddEditTravelMoment from "./AddEditTravelMoment";
+import ViewTravelMoment from "./ViewTravelMoment";
 
 interface MomentsProps {
   createdOn: string;
@@ -42,6 +43,12 @@ export default function Home() {
   const [openAddEditModal, setOpenAddEditModal] = useState<ModalProps>({
     isShow: false,
     type: "add",
+    data: null,
+  });
+
+  const [openViewModal, setOpenViewModal] = useState<ModalProps>({
+    isShow: false,
+    type: "view",
     data: null,
   });
 
@@ -97,6 +104,26 @@ export default function Home() {
     }
   };
 
+  const handleDeleteMoment = async (data: MomentsProps | null) => {
+    const momentId = data?.id;
+
+    try {
+      const response = await axiosInstance.delete(`/delete-moment/${momentId}`);
+
+      if (response.data) {
+        toast.error("Moment Deleted Successfully");
+        setOpenViewModal((prevState) => ({ ...prevState, isShow: false }));
+        getAllMoments();
+      }
+    } catch (error) {
+      console.log("An unexpected error ocurred. Please try again", error);
+    }
+  };
+
+  const handleViewStory = (moment: MomentsProps) => {
+    setOpenViewModal({ isShow: true, type: "view", data: moment });
+  };
+
   useEffect(() => {
     getUserInfo();
     getAllMoments();
@@ -120,6 +147,7 @@ export default function Home() {
                     date={moment.visitedDate}
                     visitedLocation={moment.visitedLocation}
                     isFavorite={moment.isFavorite}
+                    onHandleViewStory={() => handleViewStory(moment)}
                     onFavoriteClick={() => updateIsFavorite(moment)}
                   />
                 ))}
@@ -141,7 +169,40 @@ export default function Home() {
         ariaHideApp={false}
         className="model-box"
       >
-        <AddEditTravelMoment />
+        <AddEditTravelMoment
+          momentInfo={openViewModal.data}
+          type={openAddEditModal.type}
+          onClose={() => {
+            setOpenAddEditModal({ isShow: false, type: "add", data: null });
+          }}
+          getAllMoments={getAllMoments}
+        />
+      </Modal>
+
+      <Modal
+        isOpen={openViewModal.isShow}
+        onRequestClose={() => {}}
+        style={{
+          overlay: { backgroundColor: "rgba(0,0,0,0.2)", zIndex: 999 },
+        }}
+        ariaHideApp={false}
+        className="model-box"
+      >
+        <ViewTravelMoment
+          momentInfo={openViewModal.data}
+          onClose={() => {
+            setOpenViewModal((prevState) => ({ ...prevState, isShow: false }));
+          }}
+          onEditClick={() => {
+            setOpenViewModal((prevState) => ({ ...prevState, isShow: false }));
+            setOpenAddEditModal((prevState) => ({
+              ...prevState,
+              isShow: true,
+              type: "edit",
+            }));
+          }}
+          onDeleteClick={() => handleDeleteMoment(openViewModal.data)}
+        />
       </Modal>
 
       <button
