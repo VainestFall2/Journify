@@ -9,6 +9,10 @@ import { MdAdd } from "react-icons/md";
 import Modal from "react-modal";
 import AddEditTravelMoment from "./AddEditTravelMoment";
 import ViewTravelMoment from "./ViewTravelMoment";
+import DateFilter from "../../components/DateFilter";
+import type { DateRange } from "react-day-picker";
+import EmptyCard from "../../components/Card/EmptyCard";
+import EmptyImg from "../../assets/calendar-svgrepo-com.svg";
 
 interface MomentsProps {
   createdOn: string;
@@ -40,6 +44,7 @@ interface ModalProps {
 export default function Home() {
   const [userInfo, setUserInfo] = useState<UserInfoProps | null>(null);
   const [allMoments, setAllMoments] = useState<MomentsProps[]>([]);
+  const [dateRange, setDateRange] = useState<DateRange | undefined>();
   const [openAddEditModal, setOpenAddEditModal] = useState<ModalProps>({
     isShow: false,
     type: "add",
@@ -120,6 +125,42 @@ export default function Home() {
     }
   };
 
+  const filterMomentsByDate = async (newSelected: DateRange | undefined) => {
+    try {
+      const startDate = newSelected?.from
+        ? new Date(newSelected?.from).getTime()
+        : null;
+      const endDate = newSelected?.to
+        ? new Date(newSelected?.to).getTime()
+        : null;
+
+      if (startDate && endDate) {
+        const response = await axiosInstance.get("registered-moment/filter", {
+          params: { startDate, endDate },
+        });
+
+        if (response.data.moment) {
+          setAllMoments(response.data.moment);
+        }
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        if (
+          error.response &&
+          error.response.data &&
+          error.response.data.message
+        ) {
+          console.log(error.response.data.message);
+        }
+      }
+    }
+  };
+
+  const handleDaySelected = (newSelected: DateRange | undefined) => {
+    setDateRange(newSelected);
+    filterMomentsByDate(newSelected);
+  };
+
   const handleViewStory = (moment: MomentsProps) => {
     setOpenViewModal({ isShow: true, type: "view", data: moment });
   };
@@ -153,10 +194,17 @@ export default function Home() {
                 ))}
               </div>
             ) : (
-              <>Empty Moments</>
+              <EmptyCard
+                imgSrc={EmptyImg}
+                message="Begin your first Travel Story! Click the 'Add' button to capture your thoughts, ideas, and memories. Let`s get started!"
+              />
             )}
           </section>
-          <aside className="w-[320px]" />
+
+          <DateFilter
+            dateRange={dateRange}
+            onHandleDaySelected={handleDaySelected}
+          />
         </div>
       </main>
 

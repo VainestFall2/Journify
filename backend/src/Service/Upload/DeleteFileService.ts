@@ -10,6 +10,10 @@ class DeleteFileService {
   async execute({ imageUrl }: { imageUrl: string }) {
     const fileName = path.basename(imageUrl);
 
+    if(fileName === 'image-default.png'){
+      return { message: 'Image default has been protected' }
+    }
+
     const filepath = path.join(
       __dirname,
       '..',

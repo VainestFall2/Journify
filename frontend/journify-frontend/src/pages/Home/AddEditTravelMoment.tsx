@@ -163,6 +163,28 @@ export default function AddEditTravelMoment({
     }
   };
 
+  const handleDeleteMomentImg = async () => {
+    const deleteImgResponse = await axiosInstance.delete("/delete-upload", {
+      params: {
+        imageUrl: memoryImg,
+      },
+    });
+
+    if (deleteImgResponse.data) {
+      const momentId = momentInfo?.id;
+
+      const updateMomentData = {
+        title,
+        story: moment,
+        visitedDate,
+        visitedLocation,
+        imageUrl: "",
+      };
+
+      await axiosInstance.put(`edit-moments/${momentId}`, updateMomentData);
+    }
+  };
+
   useEffect(() => {
     handleAddNewMomentClear();
   }, []);
@@ -213,7 +235,11 @@ export default function AddEditTravelMoment({
             <DateSelector date={visitedDate} setDate={setVisitedDate} />
           </div>
 
-          <ImageSelector image={memoryImg} setImage={setMemoryImg} />
+          <ImageSelector
+            image={memoryImg}
+            setImage={setMemoryImg}
+            onHandleDeleteMomentImg={handleDeleteMomentImg}
+          />
 
           <div className="flex flex-col gap-2 mt-4">
             <label className="input-label">MOMENT</label>

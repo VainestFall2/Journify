@@ -34,7 +34,7 @@ class UpdateMomentsService {
       throw new Error('Registered moment not found!');
     }
 
-    const placeholderImageUrl = `http://localhost:8000/uploads/paisagem-ai.jpg`;
+    const placeholderImageUrl = `http://localhost:8000/uploads/image-default.png`;
 
     const updatedRegisteredMoment = await prismaClient.registeredMoment.update({
       where: {

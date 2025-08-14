@@ -38,6 +38,10 @@ class DeleteMomentsService {
     const imageUrl = registerMoment.imageUrl;
     const fileName = path.basename(imageUrl);
 
+    if(fileName === 'image-default.png'){
+      return { message: 'Image default has been protected' }
+    }
+
     const filePath = path.join(
       __dirname,
       '..',

@@ -20,13 +20,15 @@ class AddMomentsService {
   }: RegisteredMomentProps) {
     const parsedVisitedDate = new Date(visitedDate);
 
+    const placeholderImageUrl = `http://localhost:8000/uploads/image-default.png`;
+
     const registeredMoment = await prismaClient.registeredMoment.create({
       data: {
         title,
         story,
         visitedLocation,
         userId: user.userId,
-        imageUrl,
+        imageUrl: imageUrl || placeholderImageUrl,
         visitedDate: parsedVisitedDate,
       },
     });
