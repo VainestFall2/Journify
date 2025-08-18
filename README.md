@@ -1,7 +1,7 @@
 # Journify
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/10cfc79a-03e6-4541-8e7c-bc6869c97e4c" alt="Journify Logo" width="200"/>
+  <img src="https://github.com/user-attachments/assets/10cfc79a-03e6-4541-8e7c-bc6869c97e4c" alt="Journify Logo" width="1000"/>
 </p>
 
 <p align="center">
@@ -10,7 +10,6 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/status-desenvolvimento%20conclu%C3%ADdo-green" alt="Status do Projeto">
-  <img src="https://img.shields.io/github/license/VainestFall2/Journify" alt="Licença">
   </p>
 
 ---
@@ -152,6 +151,6 @@ Distribuído sob a licença MIT. Veja `LICENSE` para mais informações.
 
 ## 👨‍💻 Autor
 
-* **Seu Nome** - [LinkedIn](www.linkedin.com/in/allancesargomes) - [Email](allancagomes@hotmail.com)
+* **Allan Cesar Amaral Gomes** - [LinkedIn](www.linkedin.com/in/allancesargomes) - [Email](allancagomes@hotmail.com)
 
 Link do Projeto: [https://github.com/VainestFall2/Journify](https://github.com/VainestFall2/Journify)
