@@ -1,4 +1,6 @@
 import { MdAdd, MdClose, MdUpdate } from "react-icons/md";
+import { BsStars } from "react-icons/bs";
+import { ImSpinner2 } from "react-icons/im";
 import { DateSelector } from "../../components/input/DateSelector";
 import { useEffect, useState } from "react";
 import ImageSelector from "../../components/input/ImageSelector";
@@ -43,6 +45,10 @@ export default function AddEditTravelMoment({
     momentInfo?.imageUrl || ""
   );
   const [moment, setMoment] = useState<string>(momentInfo?.story || "");
+  const [typedText, setTypedText] = useState<string>("");
+  const [isAITyping, setIsAITyping] = useState<boolean>(false);
+  const [loadingGenerateMomentAI, setloadingGenerateMomentAI] =
+    useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
   const addNewMoment = async () => {
@@ -58,7 +64,7 @@ export default function AddEditTravelMoment({
       const response = await axiosInstance.post("add-registered-moment", {
         title,
         imageUrl: imageUrl || "",
-        story: moment,
+        story: typedText || moment,
         visitedDate: visitedDate,
         visitedLocation,
       });
@@ -91,7 +97,7 @@ export default function AddEditTravelMoment({
 
       let updateMomentData = {
         title,
-        story: moment,
+        story: typedText || moment,
         imageUrl: memoryImg || "",
         visitedDate,
         visitedLocation,
@@ -161,6 +167,51 @@ export default function AddEditTravelMoment({
       setMemoryImg(null);
       setMoment("");
     }
+  };
+
+  const handleGenerateAI = async () => {
+    if (loadingGenerateMomentAI) {
+      return;
+    }
+
+    try {
+      setloadingGenerateMomentAI(true);
+      const response = await axiosInstance.post(`/ia`, { text: moment });
+
+      typeText(response.data);
+    } catch (error) {
+      toast.error("Text generate failed. Please try again later!");
+
+      if (axios.isAxiosError(error)) {
+        if (
+          error.response &&
+          error.response.data &&
+          error.response.data.message
+        ) {
+          setError(error.response.data.message);
+        } else {
+          console.log("An unexpected error ocurred. Please try again.", error);
+        }
+      }
+    } finally {
+      setloadingGenerateMomentAI(false);
+    }
+  };
+
+  const typeText = (text: string) => {
+    setIsAITyping(true);
+    setTypedText(text[0]);
+    let index = 0;
+
+    const interval = setInterval(() => {
+      setTypedText((prev) => prev + text[index]);
+      index++;
+
+      if (index === text.length - 1) {
+        clearInterval(interval);
+        setIsAITyping(false);
+      }
+    }, 30);
   };
 
   const handleDeleteMomentImg = async () => {
@@ -242,14 +293,37 @@ export default function AddEditTravelMoment({
           />
 
           <div className="flex flex-col gap-2 mt-4">
-            <label className="input-label">MOMENT</label>
+            <header className="flex justify-between">
+              <label className="input-label">MOMENT</label>
+
+              <button
+                disabled={!moment || isAITyping}
+                className={`border p-0.5 rounded-md text-xl
+                  ${
+                    moment && !isAITyping
+                      ? "bg-slate-50 border-slate-200/50 text-fuchsia-500 hover:bg-primary hover:text-white"
+                      : "bg-slate-100 border-slate-300 text-slate-400 cursor-not-allowed opacity-50"
+                  }
+
+                   `}
+                onClick={handleGenerateAI}
+              >
+                {loadingGenerateMomentAI ? (
+                  <ImSpinner2 className="animate-spin" />
+                ) : (
+                  <BsStars />
+                )}
+              </button>
+            </header>
             <textarea
+              disabled={loadingGenerateMomentAI || isAITyping}
               className="text-sm text-slate-950 outline-none bg-slate-50 p-2 rounded"
               placeholder="Your Moment"
               rows={10}
-              value={moment}
+              value={typedText || moment}
               onChange={({ target }) => {
                 setMoment(target.value);
+                setTypedText("");
               }}
             />
           </div>

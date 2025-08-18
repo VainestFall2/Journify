@@ -116,7 +116,7 @@ export default function Home() {
       const response = await axiosInstance.delete(`/delete-moment/${momentId}`);
 
       if (response.data) {
-        toast.error("Moment Deleted Successfully");
+        toast.success("Moment Deleted Successfully");
         setOpenViewModal((prevState) => ({ ...prevState, isShow: false }));
         getAllMoments();
       }
