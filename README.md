@@ -1,7 +1,6 @@
 # Journify
-
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/10cfc79a-03e6-4541-8e7c-bc6869c97e4c" alt="Journify Logo" width="250"/>
+  <img src="https://github.com/user-attachments/assets/10cfc79a-03e6-4541-8e7c-bc6869c97e4c" alt="Journify Logo" width="200"/>
 </p>
 
 <p align="center">
