@@ -26,9 +26,9 @@ Este projeto foi criado como uma peça de portfólio para demonstrar habilidades
 -   **✈️ Registro de Viagens:** Adicione novas viagens com título, datas e descrição geral.
 -   **📍 Destaques por Local:** Marque os principais pontos de interesse em cada viagem.
 -   **📸 Galeria de Fotos:** Faça upload e associe imagens a cada registro de viagem.
--   **🗺️ Mapa Interativo:** Visualize todas as suas viagens em um mapa-múndi. *(Funcionalidade opcional)*
 -   **🔐 Autenticação de Usuários:** Sistema seguro de login e cadastro para proteger seus registros.
 -   **✒️ Edição e Exclusão:** Gerencie suas viagens e registros com total liberdade.
+-   **🤖 Aprimoramento com IA:** Utilize inteligência artificial para refinar e enriquecer as descrições de suas viagens, tornando as memórias ainda mais vívidas.
 
 ---
 
@@ -139,12 +139,6 @@ Contribuições são o que tornam a comunidade de código aberto um lugar incrí
 3.  Faça o **Commit** de suas mudanças (`git commit -m 'Add some AmazingFeature'`).
 4.  Faça o **Push** para a Branch (`git push origin feature/AmazingFeature`).
 5.  Abra um **Pull Request**.
-
----
-
-## 📜 Licença
-
-Distribuído sob a licença MIT. Veja `LICENSE` para mais informações.
 
 ---
 
